@@ -26,26 +26,17 @@
       <v-card>
         <v-card-title class="headline">About Jack The Resume Ripper</v-card-title>
         <v-card-text>
-          <p>Jeffery Morhous</p>
-          <p>Nathan Smith</p>
-          <p>Jonathan Soldan</p>
+          <p>This is a web application that intends to use Microsoft Azure to parse a resume file, searching for indicators of desirable characteristics and URL's. In its current release, the application only returns the occurrence of provided keywords in the given file.</p>
+          <p>To use the app, enter keywords separated by commas, and select a resume from your system. Then click 'Rip it!' and let Jack do his thing. The results will be displayed promptly.</p>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
             <v-btn
-              color="green darken-1"
+              color="red darken-1"
               text
               @click="overlay = false"
             >
-              Disagree
-            </v-btn>
-
-            <v-btn
-              color="green darken-1"
-              text
-              @click="overlay = false"
-            >
-             Agree
+             close
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -82,7 +73,7 @@
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
-              <v-text-field v-model="keywords" label="Keywords"></v-text-field>
+              <v-text-field v-model="keywords" label="Keywords, separated by commas"></v-text-field>
               <v-file-input v-model="filePointer" label="File input"></v-file-input>
             </v-card>
           </v-flex>
