@@ -43,6 +43,30 @@
         </v-layout>
       </v-container>
     </v-content>
+    <v-snackbar
+      v-model="snackbarSuccess"
+    >
+      Resume succesfully parsed!
+      <v-btn
+        color="error"
+        text
+        @click="snackbarSuccess = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+    <v-snackbar
+      v-model="snackbarError"
+    >
+      Resume parser had an error, our bad!
+      <v-btn
+        color="error"
+        text
+        @click="snackbarError = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -54,7 +78,8 @@ export default {
   data: () => ({
       info: null,
       loading: true,
-      errored: false
+      errored: false,
+      snackbarSuccess: false
   }),
   methods: {
     uploadButtonClicked () { // TODO: fix
@@ -64,6 +89,7 @@ export default {
       .then(response => {
         this.info = response.data
         console.log(this.info)
+        this.snackbarSuccess = true
       })
       .catch(error => {
         console.log(error)
