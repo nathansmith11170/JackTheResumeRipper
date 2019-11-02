@@ -11,7 +11,7 @@
       </v-btn>
       <v-btn
         text
-        href="https://github.com/nathansmith11170/JackTheResumeRipper/graphs/contributors"
+        @click="overlay2 = !overlay2"
         target="_blank"
       >
         <span class="mr-2">Creators</span>
@@ -39,6 +39,44 @@
              close
             </v-btn>
           </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog
+      v-model="overlay2"
+      max-width="700"
+      >
+        <v-card>
+          <v-card-title class="headline">About Jack's Parents'</v-card-title>
+          <v-card-text>
+            <div>
+              <h2>Jeffery Morhous</h2>
+              <p>Jeffery worked primarily on the front end side of this application. 
+                He guided the Vue.js and design aspects, as well as project architecture.</p>
+            </div>
+            <div>
+              <h2>Nathan Smith</h2>
+            </div>
+             <div>
+              <h2>Jonathan Soldan</h2>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+            color="error"
+            outlined
+            href="https://github.com/nathansmith11170/JackTheResumeRipper/graphs/contributors"
+            target="_blank">
+            Commit History</v-btn>
+            <v-spacer></v-spacer>
+              <v-btn
+                color="red darken-1"
+                text
+                @click="overlay2 = false"
+                outlined
+              >
+              close
+              </v-btn>
+            </v-card-actions>
         </v-card>
       </v-dialog>
       <v-container>
@@ -69,7 +107,7 @@
             >
               <v-card-text>
                 <p class="display-1 text--primary">
-                  Enter search keywords
+                  Jack The Resume Ripper
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
@@ -127,7 +165,8 @@ export default {
       snackbarError: false,
       keywords: "",
       filePointer: null,
-      overlay: false
+      overlay: false,
+      overlay2: false
   }),
   methods: {
     async uploadButtonClicked() { // TODO: fix
