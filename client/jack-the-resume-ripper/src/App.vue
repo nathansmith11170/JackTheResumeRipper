@@ -28,10 +28,23 @@
             <v-card
             class="mx-auto"
             max-width="344"
+            v-if="info!=null"
             >
               <v-card-text>
                 <p class="display-1 text--primary">
                   API Response
+                </p>
+                <div>{{this.info}}</div>
+              </v-card-text>
+            </v-card>
+            <v-card
+            class="mx-auto"
+            max-width="344"
+            v-if="info==null"
+            >
+              <v-card-text>
+                <p class="display-1 text--primary">
+                  Enter search keywords
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
@@ -87,9 +100,9 @@ export default {
     async uploadButtonClicked () { // TODO: fix
       console.log('clicked')
       await axios
-      .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {url: "mybutt"})
+      .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {image: "mybutt"})
       .then(response => {
-        this.info = response.data.url
+        this.info = response.data.image
         console.log(this.info)
         this.snackbarSuccess = true
       })
