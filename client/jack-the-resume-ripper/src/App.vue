@@ -33,7 +33,7 @@
                 <p class="display-1 text--primary">
                   API Response
                 </p>
-                <p>Nothing yet</p>
+                <div>{{this.info}}</div>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -72,6 +72,7 @@
 
 <script>
 import axios from 'axios';
+import enviroment from './enviroment';
 
 export default {
   name: 'App',
@@ -79,21 +80,23 @@ export default {
       info: null,
       loading: true,
       errored: false,
-      snackbarSuccess: false
+      snackbarSuccess: false,
+      snackbarError: false
   }),
   methods: {
-    uploadButtonClicked () { // TODO: fix
+    async uploadButtonClicked () { // TODO: fix
       console.log('clicked')
-      axios
-      .get('https://jsonplaceholder.typicode.com/todos/1')
+      await axios
+      .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {url: "mybutt"})
       .then(response => {
-        this.info = response.data
+        this.info = response.data.url
         console.log(this.info)
         this.snackbarSuccess = true
       })
       .catch(error => {
         console.log(error)
         this.errored = true
+        this.snackbarError = true
       })
       .finally(() => this.loading = false)
     }
