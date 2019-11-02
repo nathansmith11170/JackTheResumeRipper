@@ -38,7 +38,7 @@
             </v-card>
           </v-flex>
           <v-flex mb-4>
-            <v-btn outlined color="error">Upload a Resume</v-btn>
+            <v-btn outlined color="error" @click="uploadButtonClicked">Upload a Resume</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -47,11 +47,30 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'App',
   data: () => ({
-    //
+      info: null,
+      loading: true,
+      errored: false
   }),
+  methods: {
+    uploadButtonClicked () { // TODO: fix
+      console.log('clicked')
+      axios
+      .get('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => {
+        this.info = response.data
+        console.log(this.info)
+      })
+      .catch(error => {
+        console.log(error)
+        this.errored = true
+      })
+      .finally(() => this.loading = false)
+    }
+  }
 };
 </script>
