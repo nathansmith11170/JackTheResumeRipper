@@ -102,7 +102,6 @@
             </v-card>
             <v-card
             class="mx-auto pa-9"
-            max-width="444"
             v-if="info==null"
             >
               <v-card-text>
@@ -119,7 +118,8 @@
               <v-btn
               raised color="error"
               @click="uploadButtonClicked"
-              :disabled="ripButtonDisabled">Rip it!</v-btn> 
+              :disabled="ripButtonDisabled"
+              block>Rip it!</v-btn> 
           </v-flex>
         </v-layout>
       </v-container>
