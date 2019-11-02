@@ -6,7 +6,8 @@
         <span class="font-weight-light">The Resume Ripper</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn>
+      <v-btn text @click="overlay = !overlay">
+        About This Project
       </v-btn>
       <v-btn
         text
@@ -18,6 +19,37 @@
     </v-app-bar>
 
     <v-content>
+    <v-dialog
+      v-model="overlay"
+      max-width="700"
+    >
+      <v-card>
+        <v-card-title class="headline">About Jack The Resume Ripper</v-card-title>
+        <v-card-text>
+          <p>Jeffery Morhous</p>
+          <p>Nathan Smith</p>
+          <p>Jonathan Soldan</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="overlay = false"
+            >
+              Disagree
+            </v-btn>
+
+            <v-btn
+              color="green darken-1"
+              text
+              @click="overlay = false"
+            >
+             Agree
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-container>
         <v-layout
           text-center
@@ -50,12 +82,15 @@
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
-              <v-text-field v-model="keywords"></v-text-field>
+              <v-text-field v-model="keywords" label="Keywords"></v-text-field>
               <v-file-input v-model="filePointer" label="File input"></v-file-input>
             </v-card>
           </v-flex>
           <v-flex mb-4>
-              <v-btn raised color="error" @click="uploadButtonClicked">Rip it!</v-btn>  
+              <v-btn
+              raised color="error"
+              @click="uploadButtonClicked"
+              :disabled="ripButtonDisabled">Rip it!</v-btn> 
           </v-flex>
         </v-layout>
       </v-container>
@@ -100,7 +135,8 @@ export default {
       snackbarSuccess: false,
       snackbarError: false,
       keywords: "",
-      filePointer: null
+      filePointer: null,
+      overlay: false
   }),
   methods: {
     async uploadButtonClicked() { // TODO: fix
@@ -130,6 +166,11 @@ export default {
         this.snackbarError = true
       })
       .finally(() => this.loading = false)
+    }
+  },
+  computed: {
+    ripButtonDisabled: function () {
+      return (this.filePointer == null) ? true : false;
     }
   }
 };
