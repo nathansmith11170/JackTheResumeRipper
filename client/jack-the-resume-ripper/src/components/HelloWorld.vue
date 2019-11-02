@@ -21,7 +21,7 @@
         </v-card>
       </v-flex>
       <v-flex mb-4>
-        <v-btn outlined color="indigo">Upload a Resume</v-btn>
+        <v-btn outlined color="error">Upload a Resume</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,6 +29,6 @@
 
 <script>
 export default {
-  
+  name: 'HelloWorld'
 };
 </script>

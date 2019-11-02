@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app  color="error">
       <v-toolbar-title class="headline text-uppercase">
         <span>Jack </span>
         <span class="font-weight-light">The Resume Ripper</span>
