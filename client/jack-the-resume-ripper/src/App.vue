@@ -38,8 +38,8 @@
               </v-card-text>
             </v-card>
             <v-card
-            class="mx-auto"
-            max-width="344"
+            class="mx-auto pa-9"
+            max-width="444"
             v-if="info==null"
             >
               <v-card-text>
@@ -48,6 +48,7 @@
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
+              <v-text-field v-model="keywords"></v-text-field>
             </v-card>
           </v-flex>
           <v-flex mb-4>
@@ -94,13 +95,17 @@ export default {
       loading: true,
       errored: false,
       snackbarSuccess: false,
-      snackbarError: false
+      snackbarError: false,
+      keywords: ""
   }),
   methods: {
     async uploadButtonClicked () { // TODO: fix
       console.log('clicked')
       await axios
-      .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {image: "mybutt"})
+      .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {
+          image: "mybutt",
+          keywords: this.keywords
+        })
       .then(response => {
         this.info = response.data.image
         console.log(this.info)
