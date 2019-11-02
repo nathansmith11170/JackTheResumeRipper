@@ -6,6 +6,8 @@
         <span class="font-weight-light">The Resume Ripper</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn>
+      </v-btn>
       <v-btn
         text
         href="https://github.com/nathansmith11170/JackTheResumeRipper/graphs/contributors"
@@ -49,10 +51,11 @@
                 <div>{{this.info}}</div>
               </v-card-text>
               <v-text-field v-model="keywords"></v-text-field>
+              <v-file-input v-model="filePointer" label="File input"></v-file-input>
             </v-card>
           </v-flex>
           <v-flex mb-4>
-            <v-btn outlined color="error" @click="uploadButtonClicked">Upload a Resume</v-btn>
+              <v-btn raised color="error" @click="uploadButtonClicked">Rip it!</v-btn>  
           </v-flex>
         </v-layout>
       </v-container>
@@ -96,14 +99,24 @@ export default {
       errored: false,
       snackbarSuccess: false,
       snackbarError: false,
-      keywords: ""
+      keywords: "",
+      filePointer: null
   }),
   methods: {
-    async uploadButtonClicked () { // TODO: fix
-      console.log('clicked')
+    async uploadButtonClicked() { // TODO: fix
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+
+      var base64Image = await toBase64(this.filePointer);
+      //console.log(base64Image)
+      //var imageString = base64Image.substring(base64Image.indexOf(',')+1)
       await axios
       .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {
-          image: "mybutt",
+          image: String(base64Image),
           keywords: this.keywords
         })
       .then(response => {
