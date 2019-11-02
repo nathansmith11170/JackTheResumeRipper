@@ -49,9 +49,21 @@
           <v-card-title class="headline">About Jack's Parents'</v-card-title>
           <v-card-text>
             <div>
-              <h2>Jeffery Morhous</h2>
-              <p>Jeffery worked primarily on the front end side of this application. 
+               <v-row justify="space-around">
+                <h2 color="white">Jeffery Morhous</h2>
+   
+                <a href="https://www.linkedin.com/in/jeffery-morhous/"><v-icon>mdi-linkedin</v-icon></a>
+
+                <a href="https://github.com/JeffMorhous"><v-icon>mdi-github-circle</v-icon></a>
+
+                <a href="https://twitter.com/thejeffmor"><v-icon>mdi-twitter</v-icon></a>
+
+                <a href="https://medium.com/@jeffmorhous/latest"><v-icon>mdi-medium</v-icon></a>
+              </v-row>
+              <br>
+              <p>Jeffery built and expanded the client-side of Jack the Resume Ripper. 
                 He guided the Vue.js and design aspects, as well as project architecture.</p>
+
             </div>
             <div>
               <h2>Nathan Smith</h2>
