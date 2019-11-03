@@ -1,5 +1,6 @@
 {
   "name": "jack-the-resume-ripper",
+  "homepage": "https://nathansmith11170.github.io/JackTheResumeRipper/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
