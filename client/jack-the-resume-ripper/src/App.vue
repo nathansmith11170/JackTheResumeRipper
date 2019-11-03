@@ -121,7 +121,7 @@
             v-if="info!=null"
             >
               <div id="chart" v-for="i in this.categories.length" :key=i>
-                <apexchart type=donut width=380 :chartOptions="chartOptions" :series="[1,2,3]" />
+                <DonutChart :myseries="[234, 266, 273, 99, 15]"/>                   
               </div>
             </v-card>
             <v-card
@@ -134,7 +134,7 @@
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
-              <v-text-field v-model="categories" label="Keywords, separated by commas"></v-text-field>
+              <v-text-field v-model="categories" label="Categories, separated by commas"></v-text-field>
               <v-file-input v-model="filePointer" label="File input"></v-file-input>
             </v-card>
           </v-flex>
@@ -147,7 +147,7 @@
               block
               v-if="info==null">Rip it!</v-btn>
               <v-btn
-              raised color="error"
+              raised color="primary"
               @click="resetApp"
               block
               v-if="info!=null">Rip again?</v-btn>
@@ -183,11 +183,32 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from 'axios';
 import enviroment from './enviroment';
 import VueApexCharts from 'vue-apexcharts'
+import DonutChart from './components/DonutChart.component.vue'
 
 var ApexChart = VueApexCharts
+var app = new Vue({
+  el: '#appl',
+  data: function() {
+    return {
+      options: {
+        chart: {
+          id: 'vuechart-example'
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+        }
+      },
+      series: [{
+        name: 'series-1',
+        data: [30, 40, 45, 50, 49, 60, 70, 91]
+      }]
+    }
+  }
+});
 
 export default {
   name: 'App',
@@ -202,20 +223,7 @@ export default {
       categories: "",
       filePointer: null,
       overlay: false,
-      overlay2: false,
-      chartOptions: {
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-      }
+      overlay2: false
   }),
   methods: {
     async uploadButtonClicked() { // TODO: fix
@@ -235,8 +243,8 @@ export default {
           categories: this.categories
         })
       .then(response => {
-        console.log(response.data.Error)
         if(response.data.Error != null) {
+          console.log(response.data.Error)
           this.errored = true
           this.snackbarError = true
         } else {
@@ -272,7 +280,7 @@ export default {
     }
   },
   components: {
-    apexchart: ApexChart
+    DonutChart
   }
 };
 </script>
