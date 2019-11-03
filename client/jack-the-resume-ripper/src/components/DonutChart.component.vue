@@ -16,7 +16,7 @@ export default {
   data: function() {
     return {
       options: {
-        labels: ['Apple', 'Mango', 'Orange', 'Watermelon'],
+        labels: ['Postivie Corolation', 'Negative Corolation'],
         legend: {
         horizontalAlign: 'left',
         position: 'bottom',

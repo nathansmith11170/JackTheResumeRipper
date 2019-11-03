@@ -135,8 +135,8 @@
             class="mx-auto"
             v-if="info!=null"
             >
-              <div id="chart" v-for="i in this.categories.length" :key=i>
-                <DonutChart :myseries="[234, 266, 273, 99, 15]"/>                   
+              <div id="chart" v-for="i in this.values.split(',')" :key=i>
+                <DonutChart :myseries="[parseFloat(i),parseFloat(1-i)]"/>                   
               </div>
             </v-card>
             <v-card
