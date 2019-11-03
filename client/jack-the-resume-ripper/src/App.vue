@@ -67,10 +67,25 @@
 
             </div>
             <div>
-              <h2>Nathan Smith</h2>
+               <v-row justify="space-around">
+
+                <h2 color="white">Nathan Smith</h2>
+   
+                <a href="https://github.com/nathansmith11170"><v-icon>mdi-github-circle</v-icon></a>
+
+              </v-row>
+              <br>
+              <p>Nathan assisted with code reviews and the client-side of Jack the Resume Ripper. 
+                He guided the developement process and design aspects, and he took over Vue.js developement during third shift.</p>
             </div>
              <div>
-              <h2>Jonathan Soldan</h2>
+                <v-row justify="space-around">
+
+                <h2 color="white">Jonathan Soldan</h2>
+
+              </v-row>
+              <br>
+              <p>Jon was responsible for writing the python code that ran in a Lambda and utilized AWS Cognitive Services.</p>
             </div>
           </v-card-text>
           <v-card-actions>
