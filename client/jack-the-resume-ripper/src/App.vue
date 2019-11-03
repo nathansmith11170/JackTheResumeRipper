@@ -28,6 +28,7 @@
         <v-card-text>
           <p>This is a web application that intends to use Microsoft Azure to parse a resume file, searching for indicators of desirable characteristics and URL's. In its current release, the application only returns the occurrence of provided keywords in the given file.</p>
           <p>To use the app, enter keywords separated by commas, and select a resume from your system. Then click 'Rip it!' and let Jack do his thing. The results will be displayed promptly.</p>
+          <p>An example input for the categories would be "leadership, skill, determination"</p>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -102,17 +103,26 @@
           >
             <v-card
             class="mx-auto"
-            max-width="344"
             v-if="info!=null"
             >
               <v-card-text>
-                <p class="display-1 text--primary">Keyword String</p>
-                <div>{{this.keywords}}</div>
                 <p class="display-1 text--primary">
-                  API Response
+                  Keywords found by the API in the document
                 </p>
                 <div>{{this.info}}</div>
+                <p class="display-1 text--primary">
+                  Links found by the API in the document
+                </p>
+                <div>{{this.links}}</div>
               </v-card-text>
+            </v-card>
+            <v-card
+            class="mx-auto"
+            v-if="info!=null"
+            >
+              <div id="chart" v-for="i in this.categories.length" :key=i>
+                <apexchart type=donut width=380 :chartOptions="chartOptions" :series="[1,2,3]" />
+              </div>
             </v-card>
             <v-card
             class="mx-auto pa-9"
@@ -124,7 +134,7 @@
                 </p>
                 <div>{{this.info}}</div>
               </v-card-text>
-              <v-text-field v-model="keywords" label="Keywords, separated by commas"></v-text-field>
+              <v-text-field v-model="categories" label="Keywords, separated by commas"></v-text-field>
               <v-file-input v-model="filePointer" label="File input"></v-file-input>
             </v-card>
           </v-flex>
@@ -175,19 +185,37 @@
 <script>
 import axios from 'axios';
 import enviroment from './enviroment';
+import VueApexCharts from 'vue-apexcharts'
+
+var ApexChart = VueApexCharts
 
 export default {
   name: 'App',
   data: () => ({
       info: null,
+      links: null,
+      values: null,
       loading: false,
       errored: false,
       snackbarSuccess: false,
       snackbarError: false,
-      keywords: "",
+      categories: "",
       filePointer: null,
       overlay: false,
-      overlay2: false
+      overlay2: false,
+      chartOptions: {
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      }
   }),
   methods: {
     async uploadButtonClicked() { // TODO: fix
@@ -204,7 +232,7 @@ export default {
       await axios
       .post(enviroment.VUE_APP_RESUME_ANALYSIS_ENDPOINT, {
           image: String(base64Image),
-          keywords: this.keywords
+          categories: this.categories
         })
       .then(response => {
         console.log(response.data.Error)
@@ -212,8 +240,10 @@ export default {
           this.errored = true
           this.snackbarError = true
         } else {
-          this.info = response.data.values
-          console.log(this.info)
+          this.info = response.data.keywords
+          this.links = response.data.links
+          this.values = response.data.values
+          console.log(this.values)
           this.snackbarSuccess = true
         }
       })
@@ -230,7 +260,7 @@ export default {
       this.errored = false
       this.snackbarSuccess = false
       this.snackbarError = false
-      this.keywords = ""
+      this.categories = ""
       this.filePointer = null
       this.overlay = false
       this.overlay2 = false
@@ -240,6 +270,9 @@ export default {
     ripButtonDisabled: function () {
       return (this.filePointer == null) ? true : false;
     }
+  },
+  components: {
+    apexchart: ApexChart
   }
 };
 </script>
