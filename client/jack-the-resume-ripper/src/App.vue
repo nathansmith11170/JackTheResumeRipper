@@ -134,7 +134,13 @@
               :loading="loading"
               @click="uploadButtonClicked"
               :disabled="ripButtonDisabled"
-              block>Rip it!</v-btn>
+              block
+              v-if="info==null">Rip it!</v-btn>
+              <v-btn
+              raised color="error"
+              @click="resetApp"
+              block
+              v-if="info!=null">Rip again?</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -217,6 +223,17 @@ export default {
         this.snackbarError = true
       })
       .finally(() => this.loading = false)
+    },
+    resetApp() {
+      this.info = null
+      this.loading = false
+      this.errored = false
+      this.snackbarSuccess = false
+      this.snackbarError = false
+      this.keywords = ""
+      this.filePointer = null
+      this.overlay = false
+      this.overlay2 = false
     }
   },
   computed: {
