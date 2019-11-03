@@ -106,6 +106,8 @@
             v-if="info!=null"
             >
               <v-card-text>
+                <p class="display-1 text--primary">Keyword String</p>
+                <div>{{this.keywords}}</div>
                 <p class="display-1 text--primary">
                   API Response
                 </p>
@@ -129,9 +131,10 @@
           <v-flex mb-4>
               <v-btn
               raised color="error"
+              :loading="loading"
               @click="uploadButtonClicked"
               :disabled="ripButtonDisabled"
-              block>Rip it!</v-btn> 
+              block>Rip it!</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -171,7 +174,7 @@ export default {
   name: 'App',
   data: () => ({
       info: null,
-      loading: true,
+      loading: false,
       errored: false,
       snackbarSuccess: false,
       snackbarError: false,
@@ -188,7 +191,7 @@ export default {
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
       });
-
+      this.loading = true;
       var base64Image = await toBase64(this.filePointer);
       //console.log(base64Image)
       //var imageString = base64Image.substring(base64Image.indexOf(',')+1)
@@ -198,7 +201,7 @@ export default {
           keywords: this.keywords
         })
       .then(response => {
-        this.info = response.data.image
+        this.info = response.data.values
         console.log(this.info)
         this.snackbarSuccess = true
       })
