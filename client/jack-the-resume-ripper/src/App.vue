@@ -201,9 +201,15 @@ export default {
           keywords: this.keywords
         })
       .then(response => {
-        this.info = response.data.values
-        console.log(this.info)
-        this.snackbarSuccess = true
+        console.log(response.data.Error)
+        if(response.data.Error != null) {
+          this.errored = true
+          this.snackbarError = true
+        } else {
+          this.info = response.data.values
+          console.log(this.info)
+          this.snackbarSuccess = true
+        }
       })
       .catch(error => {
         console.log(error)
